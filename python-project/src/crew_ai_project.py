@@ -7,7 +7,7 @@ from crewai import Agent, Task, Crew, Process
 from crewai_tools import SerperDevTool
 search_tool = SerperDevTool()
 
-#initialize the language model
+# Initialize the language model
 llm = OllamaLLM(
     base_url="http://localhost:11434",
     model="llama3.2:1b",
@@ -18,10 +18,10 @@ topic = "quantum computing"
 
 ### CREATE AGENTS START ###
 
-# create a senior research agent with memory and verbose mode
+# Create agents with explicit LLM
 researcher = Agent(
     role='senior_researcher',
-    goal='Uncover ground breaking technologies in { topic }',
+    goal='Uncover ground breaking technologies in {topic}',
     verbose=True,
     backstory=(
         "Driven by curiosity, you are at the forefront of"
@@ -29,20 +29,21 @@ researcher = Agent(
         "the world." 
     ),
     tools=[search_tool],
-    allow_delegation=True
+    allow_delegation=True,
+    llm=llm  # Add this line
 )
 
-# create a writer agent with custom tools and delegation capabilities
 writer = Agent(
     role='writer',
-    goal='Write a report on { topic }',
+    goal='Write a report on {topic}',
     backstory=(
         "You are a skilled writer, able to transform complex ideas into "
         "engaging content. Your mission is to communicate the latest "
         "technological advancements to a broad audience."
     ),
     tools=[search_tool],
-    allow_delegation=False
+    allow_delegation=False,
+    llm=llm  # Add this line
 )
 
 ### CREATE AGENTS END ###
@@ -88,5 +89,5 @@ crew = Crew(
 )
 
 # run the crew
-result = crew.kickoff(inputs={'topic': topic})
+result = crew.kickoff(inputs={'topic': 'AI in healthcare'})
 print(result)

@@ -2,7 +2,6 @@ import os
 from langchain_ollama import OllamaLLM
 
 os.environ['37fb1573261727028f8baab406e729707337c314'] = ''
-os.environ['OPEN_AI_KEY'] = ''
 
 from crewai import Agent
 from crewai_tools import SerperDevTool

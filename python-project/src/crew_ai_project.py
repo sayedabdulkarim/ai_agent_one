@@ -3,7 +3,7 @@ from langchain_ollama import OllamaLLM
 
 os.environ['SERPER_API_KEY'] = '37fb1573261727028f8baab406e729707337c314'
 
-from crewai import Agent, Task
+from crewai import Agent, Task, Crew, Process
 from crewai_tools import SerperDevTool
 search_tool = SerperDevTool()
 
@@ -74,7 +74,19 @@ writing_task = Task(
     expected_output="A 100-word article on {topic}.",
     agent=writer,
     async_execution=False,
-    tools=[search_tool]
+    tools=[search_tool],
+    output_file="new_blog_post.md"
 )
 
 ### CREATE TASKS END ###
+
+### create a crew with the agents and tasks
+crew = Crew(
+    agents=[researcher, writer],
+    tasks=[research_task, writing_task],
+    process=Process.sequential
+)
+
+# run the crew
+result = crew.kickoff(inputs={'topic': topic})
+print(result)

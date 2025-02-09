@@ -19,3 +19,16 @@ researcher = Agent(
     tools=[search_tool],
     allow_delegation=True
 )
+
+# create a writer agent with custom tools and delegation capabilities
+writer = Agent(
+    role='writer',
+    goal='Write a report on { topic }',
+    backstory=(
+        "You are a skilled writer, able to transform complex ideas into "
+        "engaging content. Your mission is to communicate the latest "
+        "technological advancements to a broad audience."
+    ),
+    tools=[search_tool],
+    allow_delegation=True
+)

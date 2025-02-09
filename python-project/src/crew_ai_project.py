@@ -41,3 +41,13 @@ writer = Agent(
     tools=[search_tool],
     allow_delegation=True
 )
+
+# Test function to check if llm is working
+def test_llm():
+    prompt = ["What is the future of AI?"]
+    response = llm.generate(prompts=prompt)
+    print("LLM Response:", response)
+
+# Run the test function
+if __name__ == "__main__":
+    test_llm()

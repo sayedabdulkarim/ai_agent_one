@@ -15,5 +15,7 @@ researcher = Agent(
         "Driven by curiosity, you are at the forefront of"
         "innovation, eager to explore and share knowledge that could change "
         "the world." 
-    )
+    ),
+    tools=[search_tool],
+    allow_delegation=True
 )
